@@ -26,7 +26,7 @@ function App() {
     
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/api/recommend', { prompt });
+      const response = await axios.post('https://shl-assessment-aof9.vercel.app/api/recommend', { prompt });
       setResults(response.data.recommendations || []);
       setError('');
     } catch (err) {
