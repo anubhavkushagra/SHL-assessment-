@@ -18,25 +18,23 @@ exports.getRecommendations = async (req, res) => {
           text: `
 You are an intelligent SHL Assessment Recommendation System.
 
-Given the following job description or query: "${query}",
+Given the following job description or query: "\${query}",
 
-Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
+Return a JSON object with the key "recommended_assessments" containing an array of up to 10 SHL assessments.
 
-Each assessment must include the following keys:
-- "name": string (the exact test name)
-- "url": string (must follow the format: "https://www.shl.com/solutions/products/product-catalog/<name-slug>", where <name-slug> is the test name in lowercase, words separated by hyphens, and special characters removed)
+Each assessment must include exactly the following keys **in this order**:
+- "url": string (Format: "https://www.shl.com/solutions/products/product-catalog/<slugified-test-name>")
 - "adaptive_support": "Yes" or "No"
-- "remote_support": "Yes" or "No"
-- "description": string (1–2 line summary of the assessment's purpose and audience)
+- "description": string (Brief 1–2 line explanation of what the test measures and its purpose)
 - "duration": number (in minutes, e.g., 20)
+- "remote_support": "Yes" or "No"
 - "test_type": array of strings (e.g., ["Cognitive"], ["Personality & Behaviour"])
 
-Example URL format:
-If the test name is "Verify Numerical Reasoning", the URL must be:
-https://www.shl.com/solutions/products/product-catalog/verify-numerical-reasoning
+🚫 Do not include a "name" key or any extra fields.
 
-Strictly return a valid JSON object with no extra explanation, no markdown, and no formatting outside the JSON.
+Strictly return only a valid JSON object with these keys — no markdown, no explanations, no formatting outside the JSON.
 `
+
 
         }]
       }]
