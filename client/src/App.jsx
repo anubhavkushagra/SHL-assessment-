@@ -19,21 +19,27 @@ function App() {
   }, [darkMode]);
 
   const handleSubmit = async () => {
-    if (!prompt.trim()) return;
-
+    if (!prompt.trim()) return; // ✅ use correct variable
+  
     setLoading(true);
     try {
-      const response = await axios.post('https://shl-assessment-aof9.vercel.app/api/recommend', { prompt });
-      console.log("👉 Gemini Response:", response.data); 
+      const response = await axios.post('https://shl-assessment-aof9.vercel.app/api/recommend', {
+        query: prompt, // ✅ send it as 'query' key
+      });
+  
+      console.log("👉 Gemini response:", response.data);
       setResults(response.data.recommended_assessments || []);
       setError('');
     } catch (err) {
+      console.error("❌ Error from backend:", err.response?.data || err.message);
       setResults([]);
       setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+  
+  
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
