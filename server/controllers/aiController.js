@@ -48,7 +48,7 @@ Strictly return a valid JSON object with no extra explanation, no markdown, and 
 
     let aiText = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    // ✅ Remove Markdown block if present
+  
     if (aiText.startsWith("```")) {
       aiText = aiText.replace(/```(?:json)?\n?/, '').replace(/```$/, '');
     }

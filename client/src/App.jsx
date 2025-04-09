@@ -24,7 +24,7 @@ function App() {
     setLoading(true);
     try {
       const response = await axios.post('https://shl-assessment-aof9.vercel.app/api/recommend', { prompt });
-      console.log("👉 Gemini Response:", response.data); // ✅ Log response
+      console.log("👉 Gemini Response:", response.data); 
       setResults(response.data.recommended_assessments || []);
       setError('');
     } catch (err) {
