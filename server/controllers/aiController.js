@@ -16,21 +16,24 @@ exports.getRecommendations = async (req, res) => {
       contents: [{
         parts: [{
           text: `
-You are an intelligent SHL Assessment Recommendation System.
-
-Given the following job description or query: "${prompt}",
-
-Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
-
-Each assessment should be an object with the following keys:
-- "url": string (SHL product URL)
-- "adaptive_support": "Yes" or "No"
-- "remote_support": "Yes" or "No"
-- "description": string (1-2 lines explaining the test purpose and level)
-- "duration": number (in minutes, like 15, 30)
-- "test_type": array of strings (e.g., ["Cognitive", "Technical", "Personality"])
-
-Strictly return only valid JSON with no extra text, markdown, or explanation. Ensure it's parseable directly.
+          You are an intelligent SHL Assessment Recommendation System.
+          
+          Given the following job description or query: "${prompt}",
+          
+          Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
+          
+          Each assessment must be an object with the following keys:
+          - "url": string (Always use "https://www.shl.com/solutions/products/product-catalog/")
+          - "adaptive_support": "Yes" or "No"
+          - "remote_support": "Yes" or "No"
+          - "description": string (brief 1–2 line explanation of what the test measures and its target audience)
+          - "duration": number (in minutes, e.g. 20, 30)
+          - "test_type": array of strings (e.g., ["Cognitive"], ["Personality & Behaviour"])
+          
+          Do not generate or assume specific links. Use only this URL:
+          https://www.shl.com/solutions/products/product-catalog/
+          
+          Strictly return valid JSON only. No markdown, no explanations, no extra formatting.
           `
         }]
       }]

@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Recommendations from './components/Recommendations';
@@ -13,7 +11,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    
     if (darkMode) {
       document.body.classList.add('dark-mode');
     } else {
@@ -23,11 +20,12 @@ function App() {
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;
-    
+
     setLoading(true);
     try {
       const response = await axios.post('https://shl-assessment-aof9.vercel.app/api/recommend', { prompt });
-      setResults(response.data.recommendations || []);
+      console.log("👉 Gemini Response:", response.data); // ✅ Log response
+      setResults(response.data.recommended_assessments || []);
       setError('');
     } catch (err) {
       setResults([]);
