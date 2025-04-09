@@ -16,25 +16,28 @@ exports.getRecommendations = async (req, res) => {
       contents: [{
         parts: [{
           text: `
-          You are an intelligent SHL Assessment Recommendation System.
-          
-          Given the following job description or query: "${prompt}",
-          
-          Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
-          
-          Each assessment must be an object with the following keys:
-          - "url": string (Always use "https://www.shl.com/solutions/products/product-catalog/")
-          - "adaptive_support": "Yes" or "No"
-          - "remote_support": "Yes" or "No"
-          - "description": string (brief 1–2 line explanation of what the test measures and its target audience)
-          - "duration": number (in minutes, e.g. 20, 30)
-          - "test_type": array of strings (e.g., ["Cognitive"], ["Personality & Behaviour"])
-          
-          Do not generate or assume specific links. Use only this URL:
-          https://www.shl.com/solutions/products/product-catalog/
-          
-          Strictly return valid JSON only. No markdown, no explanations, no extra formatting.
-          `
+You are an intelligent SHL Assessment Recommendation System.
+
+Given the following job description or query: "${prompt}",
+
+Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
+
+Each assessment must include the following keys:
+- "name": string (the exact test name)
+- "url": string (must follow the format: "https://www.shl.com/solutions/products/product-catalog/<name-slug>", where <name-slug> is the test name in lowercase, words separated by hyphens, and special characters removed)
+- "adaptive_support": "Yes" or "No"
+- "remote_support": "Yes" or "No"
+- "description": string (1–2 line summary of the assessment's purpose and audience)
+- "duration": number (in minutes, e.g., 20)
+- "test_type": array of strings (e.g., ["Cognitive"], ["Personality & Behaviour"])
+
+Example URL format:
+If the test name is "Verify Numerical Reasoning", the URL must be:
+https://www.shl.com/solutions/products/product-catalog/verify-numerical-reasoning
+
+Strictly return a valid JSON object with no extra explanation, no markdown, and no formatting outside the JSON.
+`
+
         }]
       }]
     };
