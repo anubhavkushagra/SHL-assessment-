@@ -3,10 +3,10 @@ const axios = require('axios');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 exports.getRecommendations = async (req, res) => {
-  const { prompt } = req.body;
+  const { query } = req.body;
 
-  if (!prompt) {
-    return res.status(400).json({ error: "Prompt is required." });
+  if (!query) {
+    return res.status(400).json({ error: "Query is required." });
   }
 
   try {
@@ -18,7 +18,7 @@ exports.getRecommendations = async (req, res) => {
           text: `
 You are an intelligent SHL Assessment Recommendation System.
 
-Given the following job description or query: "${prompt}",
+Given the following job description or query: "${query}",
 
 Return a JSON object with the key "recommended_assessments" which contains an array of up to 10 SHL assessments.
 
